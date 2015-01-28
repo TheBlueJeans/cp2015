@@ -1,13 +1,5 @@
-def isPrime(n):
-    if n==1:
-        return False
-    if n==2:
-        return True
-    if n%2==0:
-        return False
-    for i in range (3,int(n**0.5)+1,2):
-        if n%i==0:
-            return False
-    return True
-a=int(input("Enter a number:\n"))
-print(isPrime(a))
+from math import pi
+radius = int(input("Please enter the radius of the cylinder: \n"))
+length = int(input("Please enter the length of the cylinder: \n"))
+volume = length*radius**2*pi
+print("The volume of the cylinder is:", volume)
