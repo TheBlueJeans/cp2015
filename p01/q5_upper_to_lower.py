@@ -4,7 +4,7 @@ while True:
         if uppercase.isupper():
             break
         else:
-            print("Please input a upper letter")
+            print("Please input an uppercase letter")
     else:
-        print("Please input only one upper letter")
+        print("Please input only one uppercase letter")
 print("Lowercase letter of the letter above is:", chr(ord(uppercase)+32))
