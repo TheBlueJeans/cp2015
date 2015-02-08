@@ -2,8 +2,7 @@ def convert_ms(n):
     time=""
     multiples = [3600000, 60000, 1000]
     for i in range(0, 3):
-        if n/multiples[i] > 0:
-            print(n/multiples[i])
+        if n//multiples[i] > 0:
             time = time+str(n//multiples[i])+":"
             n = n%multiples[i]
         else:
