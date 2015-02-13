@@ -1,3 +1,5 @@
+import sys
+sys.setrecursionlimit(10000)
 def sum_series1(i):
     if i == 1:
         return 1
