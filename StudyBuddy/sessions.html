@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>StudyBuddy - Sessions</title>
+	<link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+	<link rel="stylesheet" type="text/css" href="stylesheets/normalize.css"/>
+	<link rel="stylesheet" type="text/css" href="stylesheets/main.css"/>
+</head>
+
+<body>
+	<div class="background">
+	</div>
+	<div class="container">
+		<nav>
+			<ul>
+				<li><a href="/">HOME</a></li>
+				<li><a href="/about">ABOUT</a></li>
+				<li><a href="/sessions" class="page">SESSIONS</a></li>
+				<li><a href="{{ url|safe }}">{{ url_linktext }}</a></li>
+			</ul>
+		</nav>
+	</div>
+	<div class="content">
+			<div class="display">
+				<form method="post" action="/search">
+					<input type="search" placeholder="Search" name="search" class="enter"/>
+					<select class="enter" name="search_type" required>
+						<option selected="true" disabled>Choose</option>
+						<option value="location">Location</option>
+						<option value="study">Education</option>
+						<option value="gender">Gender</option>
+						<option value="subject">Subject</option>
+						<option value="topic">Topic</option>
+						<option value="date">Date</option>
+					</select>
+					<input type="submit" value="Go" class="submit"/>
+				</form>
+				<h6 style="color:#0F0">Please scroll to see all details</h6>
+				<br>
+				<form method="post" action="/apply">
+					<input style="float: right" type="submit" value="Apply" class="submit"/>
+					<br>
+					<br>
+					<table>
+						<thead style="background-color: #e9d396">
+							<th>Location</th>
+							<th>Education</th>
+							<th>Level</th>
+							<th>Subject</th>
+							<th>Topic</th>
+							<th>Date</th>
+							<th>Time</th>
+							<th>Gender</th>
+							<th>Email</th>
+							<th>Attend</th>
+							<th>Del</th>
+						</thead>
+						{% for info in display %}
+							<tr>
+								<td>{{info.location}}</td>
+								<td>{{info.study}}</td>
+								<td>{{info.level}}</td>
+								<td>{{info.subject}}</td>
+								<td>{{info.topic}}</td>
+								<td>{{info.date}}</td>
+								<td>{{info.time}}</td>
+								<td>{{info.gender}}</td>
+								<td>{{info.email}}</td>
+								<td><input type="checkbox" name="attend" value="{{info.key.id()}}"/></td>
+								{% if info.email == user.email() %}
+									<td><input type="checkbox" name="delete" value="{{info.key.id()}}"/></td>
+								{% else %}
+									<td>nil</td>
+								{% endif %}
+							</tr>
+						{% endfor %}
+					</table>
+				</form>
+			</div>
+			<br>
+			<form class="create" method="post" action="/sessions">
+				<h3>Create a study session</h3>
+				<h4>Where: &nbsp </h4>
+				<input type="text" placeholder="Location" name="location" class="enter" required />
+				<br>
+				<h4>Education level: &nbsp </h4>
+				<input type="number" placeholder="lvl" min="1" max="6" name="level" class="num" required />
+				<br>
+				<select class="enter" name="study" required>
+					<option selected="true" disabled>Choose</option>
+					<option value="Primary">Primary</option>
+					<option value="Foundation (Pri)">Foundation (Pri)</option>
+					<option value="N.T. (Sec)">N.T. (Sec)</option>
+					<option value="N.A. (Sec)">N.A. (Sec)</option>
+					<option value="Express (Sec)">Express (Sec)</option>
+					<option value="IP (Sec)">IP (Sec)</option>
+					<option value="IB (Sec)">IB (Sec)</option>
+					<option value="Pre-University">Pre-University</option>
+					<option value="Polytechnic">Polytechnic</option>
+					<option value="ITE">ITE</option>
+					<option value="University">University</option>
+				</select>
+				<br>
+				<h4>Gender: &nbsp </h4>
+				<input type="radio" class="radio" name="gender" value="male" checked required><h4 style="color: #ff3d3d">Male</h4></input>
+				<input type="radio" class="radio" name="gender" value="female" required><h4 style="color: #3cfbff">Female</h4></input>
+				<br>
+				<h4>Subject: &nbsp </h4>
+				<input type="text" placeholder="Subject" class="enter" name="subject" required />
+				<!--<select class="enter" name="subject" required>
+					<option>Choose</option>
+					<option value="English Language">English Language</option>
+					<option value="Arabic">Arabic</option>
+					<option value="Bahasa Indonesia">Bahasa Indonesia</option>
+					<option value="E.Lit">E.Lit</option>
+					<option value="C.Lit">C.Lit</option>
+					<option value="History">History</option>
+					<option value="Combined Humans">Comb Humanities</option>
+					<option value="Geography">Geography</option>
+					<option value="French">French</option>
+					<option value="German">German</option>
+					<option value="Burmese">Burmese</option>
+					<option value="Thai">Thai</option>
+					<option value="Japanese">Japanese</option>
+					<option value="Math">Mathematics</option>
+					<option value="Additional MathematicsA Math">A Math</option>
+					<option value="Physics (SPA)">Physics (SPA)</option>
+					<option value="Chemistry (SPA)">Chemistry (SPA)</option>
+					<option value="Physics">Physics</option>
+					<option value="Chemistry">Chemistry</option>
+					<option value="Biology">Biology</option>
+					<option value="Biology (SPA)">Biology (SPA)</option>
+					<option value="Music">Music</option>
+					<option value="Higher Music">Higher Music</option>
+					<option value="Food and Nutrition">Food and Nutrition</option>
+					<option value="Art">Art</option>
+					<option value="Higher Art">Higher Art</option>
+					<option value="Design and Technology">D&T</option>
+					<option value="Principles of Accounts">Accounts</option>
+					<option value="Others">Others</option>
+				</select>-->
+				<br>
+				<h4>Topic: &nbsp </h4>
+				<input type="text" placeholder="Topic" name="topic" class="enter" required />
+				<br>
+				<h4>Date: &nbsp </h4>
+				<input type="date" placeholder="dd/mm/yyyy" name="date" class="date" required />
+				<br>
+				<h4>Time: &nbsp </h4>
+				<input type="time" placeholder="hr:min am/pm" name="time" class="enter" required />
+				<br>
+				<input type="submit" value="Submit" class="submit">
+			</form>
+	</div>
+</body>
+<footer>
+	<h6 align="center">&copy; Pang Shi Song - living life to the fullest</h6>
+	<br>
+	<h6>Motivation drives everything</h6>
+</footer>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59559751-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</html>
